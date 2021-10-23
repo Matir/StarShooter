@@ -301,6 +301,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  minFireDelay: 1
+  projectile: {fileID: 4302447789720959495, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
 --- !u!212 &734184644
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -341,7 +343,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b18dd3934263a1a2085d1fbd54c372e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -390,7 +392,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
 --- !u!50 &734184647
 Rigidbody2D:
