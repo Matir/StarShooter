@@ -308,7 +308,10 @@ MonoBehaviour:
   speed: 8
   minFireDelay: 0.25
   projectile: {fileID: 4302447789720959495, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
+  healthBarPrefab: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
   hp: 10
+  hpbarVerticalOffset: -0.6
+  healthBarColor: {r: 0, g: 0.8113208, b: 0.07041034, a: 0.7058824}
 --- !u!212 &734184644
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -687,7 +690,7 @@ GameObject:
   - component: {fileID: 2143940333}
   m_Layer: 5
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -840,6 +843,10 @@ PrefabInstance:
     - target: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
       propertyPath: m_Name
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4035161017551043697, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
       propertyPath: m_Pivot.x

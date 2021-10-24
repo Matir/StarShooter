@@ -9,19 +9,35 @@ public class PlayerScript : MonoBehaviour
     public float speed = 10.0f;
     public float minFireDelay = 1.0f;
     public GameObject projectile;
+    public GameObject healthBarPrefab;
     public int hp = 10;
+    public float hpbarVerticalOffset = -0.8f;
+    public Color healthBarColor = Color.green;
 
     private float threshold = 0.01f;
     private Rigidbody2D rigidBody;
     private bool firing = false;
     private float lastFireTime = 0.0f;
     private int currhp;
+    private HealthBar hpbar = null;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         currhp = hp;
+        if (healthBarPrefab != null) {
+            GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
+            if (canvas == null) {
+                Debug.Log("Unable to find canvas!");
+            }
+            GameObject barobj = Instantiate(
+                healthBarPrefab, new Vector3(0, 0, 0),
+                Quaternion.identity,
+                canvas.transform);
+            hpbar = barobj.GetComponent<HealthBar>();
+            hpbar.barColor = healthBarColor;
+        }
     }
 
     // Update is called once per frame
@@ -31,6 +47,11 @@ public class PlayerScript : MonoBehaviour
         if (firing && (Time.time > lastFireTime + minFireDelay)) {
             lastFireTime = Time.time;
             FireCannon();
+        }
+        if (hpbar != null) {
+            hpbar.Position(
+                transform.position.x,
+                transform.position.y + hpbarVerticalOffset);
         }
     }
 
@@ -71,6 +92,9 @@ public class PlayerScript : MonoBehaviour
         // TODO: Game Over
         ShotScript shot = fire.GetComponent<ShotScript>();
         currhp -= shot.GetDamage();
+        if (hpbar != null) {
+            hpbar.SetHealth((float)(currhp)/(float)(hp));
+        }
         Destroy(fire);
         if (currhp <= 0) {
             // Need game over
