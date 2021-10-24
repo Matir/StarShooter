@@ -10,11 +10,15 @@ public class EnemyScript : MonoBehaviour
     public float shootRange = 0.5f;
     public float minFireDelay = 1.0f;
     public float maxForce = 5.0f;
+    public GameObject healthBarPrefab;
+    public float hpbarVerticalOffset = 0.8f;
+    public Color healthBarColor = Color.red;
 
     private Rigidbody2D playerBody;
     private int i=0;
     private float lastFireTime = 0.0f;
     private int currhp;
+    private HealthBar hpbar = null;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +29,29 @@ public class EnemyScript : MonoBehaviour
         }
         playerBody = candidates[0].GetComponent<Rigidbody2D>();
         currhp = hp;
+        if (healthBarPrefab != null) {
+            GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
+            if (canvas == null) {
+                Debug.Log("Unable to find canvas!");
+            }
+            GameObject barobj = Instantiate(
+                healthBarPrefab, new Vector3(0, 0, 0),
+                Quaternion.identity,
+                canvas.transform);
+            barobj.name = "EnemyHealthBar";
+            hpbar = barobj.GetComponent<HealthBar>();
+            hpbar.barColor = healthBarColor;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (hpbar != null) {
+            hpbar.Position(
+                transform.position.x,
+                transform.position.y + hpbarVerticalOffset);
+        }
     }
 
     // FixedUpdate is called on a fixed interval
@@ -80,10 +101,17 @@ public class EnemyScript : MonoBehaviour
         // TODO: trigger any dying effect, etc.
         ShotScript shot = fire.GetComponent<ShotScript>();
         currhp -= shot.GetDamage();
+        if (hpbar != null) {
+            hpbar.SetHealth((float)(currhp)/(float)(hp));
+        }
         Destroy(fire);
         if (currhp <= 0) {
             // TODO: big show of dying, scoring, etc.
             Destroy(gameObject);
         }
+    }
+
+    void OnDestroy() {
+        Destroy(hpbar.gameObject);
     }
 }

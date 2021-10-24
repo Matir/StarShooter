@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour
                 healthBarPrefab, new Vector3(0, 0, 0),
                 Quaternion.identity,
                 canvas.transform);
+            barobj.name = "PlayerHealthBar";
             hpbar = barobj.GetComponent<HealthBar>();
             hpbar.barColor = healthBarColor;
         }
@@ -101,5 +102,9 @@ public class PlayerScript : MonoBehaviour
             rigidBody = null;
             Destroy(gameObject);
         }
+    }
+
+    void OnDestroy() {
+        Destroy(hpbar.gameObject);
     }
 }

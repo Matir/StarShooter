@@ -629,6 +629,9 @@ MonoBehaviour:
   shootRange: 0.5
   minFireDelay: 1
   maxForce: 5
+  healthBarPrefab: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
+  hpbarVerticalOffset: 0.8
+  healthBarColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!61 &1104494514
 BoxCollider2D:
   m_ObjectHideFlags: 0
