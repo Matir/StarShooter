@@ -9,6 +9,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject projectile;
     public float shootRange = 0.5f;
     public float minFireDelay = 1.0f;
+    public float maxForce = 5.0f;
 
     private Rigidbody2D playerBody;
     private int i=0;
@@ -45,6 +46,7 @@ public class EnemyScript : MonoBehaviour
         if (Math.Sign(delta) != Math.Sign(rb.velocity.x)) {
             force = delta*4;
         }
+        force = Mathf.Clamp(force, -maxForce, maxForce);
         rb.AddRelativeForce(new Vector2(force, 0));
         // If we're close, try shooting
         if (Math.Abs(delta) < shootRange) {

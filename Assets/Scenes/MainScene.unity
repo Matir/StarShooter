@@ -303,6 +303,7 @@ MonoBehaviour:
   speed: 8
   minFireDelay: 0.25
   projectile: {fileID: 4302447789720959495, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
+  hp: 10
 --- !u!212 &734184644
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -553,6 +554,7 @@ MonoBehaviour:
   projectile: {fileID: 4302447789720959495, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
   shootRange: 0.5
   minFireDelay: 1
+  maxForce: 5
 --- !u!61 &1104494514
 BoxCollider2D:
   m_ObjectHideFlags: 0
