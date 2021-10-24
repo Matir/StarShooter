@@ -14,6 +14,7 @@ public class EnemyScript : MonoBehaviour
     private Rigidbody2D playerBody;
     private int i=0;
     private float lastFireTime = 0.0f;
+    private int currhp;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class EnemyScript : MonoBehaviour
             throw new Exception("Expected exactly one player tag.");
         }
         playerBody = candidates[0].GetComponent<Rigidbody2D>();
+        currhp = hp;
     }
 
     // Update is called once per frame
@@ -76,9 +78,10 @@ public class EnemyScript : MonoBehaviour
     void HitFire(GameObject fire) {
         Debug.Log("I'm triggered!");
         // TODO: trigger any dying effect, etc.
+        ShotScript shot = fire.GetComponent<ShotScript>();
+        currhp -= shot.GetDamage();
         Destroy(fire);
-        hp--;
-        if (hp <= 0) {
+        if (currhp <= 0) {
             // TODO: big show of dying, scoring, etc.
             Destroy(gameObject);
         }
