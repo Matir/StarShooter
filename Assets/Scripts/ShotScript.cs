@@ -6,6 +6,9 @@ public class ShotScript : MonoBehaviour
 {
     // Shot forward velocity
     public float shotVelocity = 1.0f;
+    // Damage from this shot
+    [SerializeField]
+    private int damage = 1;
     // Who was the shooter?
     private bool friendly = false;
 
@@ -34,5 +37,15 @@ public class ShotScript : MonoBehaviour
 
     public bool IsFriendly() {
         return friendly;
+    }
+
+    public int GetDamage() {
+        return damage;
+    }
+
+    public static bool IsShot(GameObject obj) {
+        // Check if we have a shot script
+        ShotScript script = obj.GetComponent<ShotScript>();
+        return (script != null);
     }
 }

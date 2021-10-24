@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerMovementScript : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     public float speed = 10.0f;
     public float minFireDelay = 1.0f;
     public GameObject projectile;
+    public int hp = 10;
 
     private float threshold = 0.01f;
     private Rigidbody2D rigidBody;
@@ -37,6 +38,8 @@ public class PlayerMovementScript : MonoBehaviour
     }
 
     private void UpdateHorizontal() {
+        if (rigidBody == null)
+            return;
         float movement = Input.GetAxis("Horizontal");
         if (Math.Abs(movement) < threshold) {
             movement = 0.0f;
@@ -50,5 +53,27 @@ public class PlayerMovementScript : MonoBehaviour
         GameObject fired = Instantiate(projectile, transform.position, transform.rotation);
         // Todo: per-ammo launch type?
         fired.GetComponent<ShotScript>().Fire(true);
+    }
+
+    // Bullets & missiles have trigger enabled
+    void OnTriggerEnter2D(Collider2D col) {
+        if (!ShotScript.IsShot(col.gameObject)) {
+            return;
+        }
+        if (!col.gameObject.GetComponent<ShotScript>().IsFriendly()) {
+            HitFire(col.gameObject);
+        }
+    }
+
+    void HitFire(GameObject fire) {
+        // TODO: Game Over
+        ShotScript shot = fire.GetComponent<ShotScript>();
+        hp -= shot.GetDamage();
+        Destroy(fire);
+        if (hp <= 0) {
+            // Need game over
+            rigidBody = null;
+            Destroy(gameObject);
+        }
     }
 }
