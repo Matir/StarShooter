@@ -49,6 +49,6 @@ public class PlayerMovementScript : MonoBehaviour
         Debug.Log("Firing cannon!");
         GameObject fired = Instantiate(projectile, transform.position, transform.rotation);
         // Todo: per-ammo launch type?
-        fired.GetComponent<ShotScript>().Fire();
+        fired.GetComponent<ShotScript>().Fire(true);
     }
 }

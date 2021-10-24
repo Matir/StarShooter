@@ -6,6 +6,8 @@ public class ShotScript : MonoBehaviour
 {
     // Shot forward velocity
     public float shotVelocity = 1.0f;
+    // Who was the shooter?
+    private bool friendly = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +21,18 @@ public class ShotScript : MonoBehaviour
         
     }
 
-    public void Fire() {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(0, shotVelocity);
+    public void Fire(bool isFriendly) {
+        friendly = isFriendly;
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        Vector2 v = new Vector2(0, shotVelocity);
+        rb.velocity = Quaternion.Euler(0, 0, rb.rotation) * v;
     }
 
     void OnBecameInvisible() {
         Destroy(gameObject);
+    }
+
+    public bool IsFriendly() {
+        return friendly;
     }
 }
