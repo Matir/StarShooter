@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
+    public int hp = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +18,15 @@ public class EnemyScript : MonoBehaviour
         
     }
 
-    // Checking for collision
-    void OnCollisionEnter2D(Collision2D collision) {
-        Debug.Log("I'm hit!");
+    // Bullets & missiles have trigger enabled
+    void OnTriggerEnter2D(Collider2D col) {
+        Debug.Log("I'm triggered!");
+        // TODO: trigger any dying effect, etc.
+        Destroy(col.gameObject);
+        hp--;
+        if (hp <= 0) {
+            // TODO: big show of dying, scoring, etc.
+            Destroy(gameObject);
+        }
     }
 }

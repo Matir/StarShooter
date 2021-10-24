@@ -20,11 +20,10 @@ public class ShotScript : MonoBehaviour
     }
 
     public void Fire() {
-        GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(0, shotVelocity, 0));
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, shotVelocity);
     }
 
     void OnBecameInvisible() {
-        Debug.Log("Invisible!");
         Destroy(gameObject);
     }
 }

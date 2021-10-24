@@ -414,7 +414,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!4 &840139451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 876358976699779799, guid: ae0116ba497ae9eec9075c7bb8dcf7df, type: 3}
@@ -595,7 +595,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!1001 &876358977002784876
 PrefabInstance:
   m_ObjectHideFlags: 0
