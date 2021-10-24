@@ -15,11 +15,13 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D rigidBody;
     private bool firing = false;
     private float lastFireTime = 0.0f;
+    private int currhp;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        currhp = hp;
     }
 
     // Update is called once per frame
@@ -49,7 +51,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     private void FireCannon() {
-        Debug.Log("Firing cannon!");
+        //Debug.Log("Firing cannon!");
         GameObject fired = Instantiate(projectile, transform.position, transform.rotation);
         // Todo: per-ammo launch type?
         fired.GetComponent<ShotScript>().Fire(true);
@@ -68,9 +70,9 @@ public class PlayerScript : MonoBehaviour
     void HitFire(GameObject fire) {
         // TODO: Game Over
         ShotScript shot = fire.GetComponent<ShotScript>();
-        hp -= shot.GetDamage();
+        currhp -= shot.GetDamage();
         Destroy(fire);
-        if (hp <= 0) {
+        if (currhp <= 0) {
             // Need game over
             rigidBody = null;
             Destroy(gameObject);
