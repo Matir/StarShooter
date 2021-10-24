@@ -10,3 +10,4 @@ TODO:
   - [ ] Group
   - [ ] Huge Fighter
 - [ ] Overall Score
+- [ ] Shields (Recharge over time)
