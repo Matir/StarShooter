@@ -13,12 +13,14 @@ public class EnemyScript : MonoBehaviour
     public GameObject healthBarPrefab;
     public float hpbarVerticalOffset = 0.8f;
     public Color healthBarColor = Color.red;
+    public int pointValue = 1;
 
     private Rigidbody2D playerBody;
     private int i=0;
     private float lastFireTime = 0.0f;
     private int currhp;
     private HealthBar hpbar = null;
+    private LevelController levelController = null;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,10 @@ public class EnemyScript : MonoBehaviour
             barobj.name = "EnemyHealthBar";
             hpbar = barobj.GetComponent<HealthBar>();
             hpbar.barColor = healthBarColor;
+        }
+        GameObject lvlc = GameObject.Find("LevelController");
+        if (lvlc != null) {
+            levelController = lvlc.GetComponent<LevelController>();
         }
     }
 
@@ -107,6 +113,9 @@ public class EnemyScript : MonoBehaviour
         Destroy(fire);
         if (currhp <= 0) {
             // TODO: big show of dying, scoring, etc.
+            if (levelController != null) {
+                levelController.EnemyDeath(gameObject);
+            }
             Destroy(gameObject);
         }
     }
@@ -115,5 +124,9 @@ public class EnemyScript : MonoBehaviour
         if (hpbar != null) {
             Destroy(hpbar.gameObject);
         }
+    }
+
+    public void SetLevelController(LevelController c) {
+        levelController = c;
     }
 }
