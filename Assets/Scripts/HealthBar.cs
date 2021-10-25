@@ -11,6 +11,9 @@ public class HealthBar : MonoBehaviour
     private Image fillImage;
     private CanvasGroup group;
     private float fullAmount = (1.0f - 0.01f);
+    private float fadeTime = 0.3f;
+    private int fadeSteps = 10;
+    private bool shown = true;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +21,7 @@ public class HealthBar : MonoBehaviour
         group = GetComponent<CanvasGroup>();
         if (hideFull) {
             group.alpha = 0f;
+            shown = false;
         }
         fillImage = transform.Find("HealthBarFill").gameObject.GetComponent<Image>();
         if (fillImage == null) {
@@ -43,15 +47,46 @@ public class HealthBar : MonoBehaviour
         Debug.Log("Health: " + health + " Full: " + fullAmount);
         if (hideFull && health >= fullAmount) {
             // Hide
-            group.alpha = 0f;
+            HideBar();
             Debug.Log("Full");
         } else {
             // Show
-            group.alpha = 1f;
+            ShowBar();
         }
     }
 
     public void Position(float x, float y) {
         transform.position = new Vector3(x, y, 0);
+    }
+
+    private void HideBar() {
+        if (!shown) {
+            return;
+        }
+        shown = false;
+        StartCoroutine(FadeHealthBar(false));
+    }
+
+    private void ShowBar() {
+        if (shown) {
+            return;
+        }
+        shown = true;
+        StartCoroutine(FadeHealthBar(true));
+    }
+
+    private IEnumerator FadeHealthBar(bool up) {
+        float stepwise = 1.0f/((float)fadeSteps);
+        for(int step=0; step<fadeSteps; step++) {
+            if (group == null) {
+                break;
+            }
+            if (up) {
+                group.alpha = stepwise * (step+1);
+            } else {
+                group.alpha = 1 - (stepwise * step);
+            }
+            yield return new WaitForSeconds(fadeTime/(float)fadeSteps);
+        }
     }
 }
