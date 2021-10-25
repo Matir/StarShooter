@@ -14,18 +14,20 @@ public class PlayerScript : MonoBehaviour
     public float hpbarVerticalOffset = -0.8f;
     public Color healthBarColor = Color.green;
 
+    private LevelController levelController;
     private float threshold = 0.01f;
     private Rigidbody2D rigidBody;
     private bool firing = false;
     private float lastFireTime = 0.0f;
     private int currhp;
     private HealthBar hpbar = null;
+    private Vector3 startPos;
 
     // Start is called before the first frame update
     void Start()
     {
+        startPos = gameObject.transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
-        currhp = hp;
         if (healthBarPrefab != null) {
             GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
             if (canvas == null) {
@@ -39,6 +41,19 @@ public class PlayerScript : MonoBehaviour
             hpbar = barobj.GetComponent<HealthBar>();
             hpbar.barColor = healthBarColor;
         }
+        GameObject lvlc = GameObject.Find("LevelController");
+        if (lvlc != null) {
+            levelController = lvlc.GetComponent<LevelController>();
+        }
+        Reset();
+    }
+
+    public void Reset() {
+        if (hpbar != null) {
+            hpbar.SetHealth(1.0f);
+        }
+        currhp = hp;
+        gameObject.transform.position = startPos;
     }
 
     // Update is called once per frame
@@ -98,7 +113,9 @@ public class PlayerScript : MonoBehaviour
         }
         Destroy(fire);
         if (currhp <= 0) {
-            // Need game over
+            if (levelController != null) {
+                levelController.PlayerDie();
+            }
             rigidBody = null;
             Destroy(gameObject);
         }
