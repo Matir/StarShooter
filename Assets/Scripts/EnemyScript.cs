@@ -112,6 +112,8 @@ public class EnemyScript : MonoBehaviour
     }
 
     void OnDestroy() {
-        Destroy(hpbar.gameObject);
+        if (hpbar != null) {
+            Destroy(hpbar.gameObject);
+        }
     }
 }

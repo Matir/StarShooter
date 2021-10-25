@@ -105,6 +105,8 @@ public class PlayerScript : MonoBehaviour
     }
 
     void OnDestroy() {
-        Destroy(hpbar.gameObject);
+        if (hpbar != null) {
+            Destroy(hpbar.gameObject);
+        }
     }
 }
