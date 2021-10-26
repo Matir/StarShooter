@@ -20,6 +20,7 @@ public class LevelController : MonoBehaviour
     private int score = 0;
     private int enemiesKilled = 0;
     private GameState currentState = GameState.Over;
+    private HUDScript hudScript = null;
     
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,11 @@ public class LevelController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) {
             Debug.Log("LevelController failed to find player!");
+        }
+        if (HUD != null) {
+            hudScript = HUD.GetComponent<HUDScript>();
+        } else {
+            Debug.Log("Need a HUD Component!");
         }
         NewGame();
     }
@@ -38,6 +44,7 @@ public class LevelController : MonoBehaviour
         if (player != null) {
             player.GetComponent<PlayerScript>().Reset();
         }
+        LaunchLevel();
     }
 
     // Update is called once per frame
@@ -70,5 +77,6 @@ public class LevelController : MonoBehaviour
     void LaunchLevel() {
         levelNo++;
         Debug.Log("Starting level " + levelNo);
+        hudScript.SetLevel(levelNo);
     }
 }
