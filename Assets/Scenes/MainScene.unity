@@ -975,8 +975,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HUD: {fileID: 1022625924}
   EndGameScreen: {fileID: 240327638}
+  EnemyPrefabs:
+  - {fileID: 4524216901149148725, guid: 97d4d8b044b7a8d5e9fdf7c8b4b12e44, type: 3}
   playerLineY: -4
   enemyLineY: 3.5
+  enemySpacing: 1
   gameOverScreenDelay: 1
 --- !u!4 &1962999487
 Transform:
@@ -1395,6 +1398,10 @@ PrefabInstance:
     - target: {fileID: 4524216901149148725, guid: 97d4d8b044b7a8d5e9fdf7c8b4b12e44, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524216901149148725, guid: 97d4d8b044b7a8d5e9fdf7c8b4b12e44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97d4d8b044b7a8d5e9fdf7c8b4b12e44, type: 3}
