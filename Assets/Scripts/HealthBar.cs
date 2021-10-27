@@ -67,7 +67,11 @@ public class HealthBar : MonoBehaviour
             return;
         }
         shown = false;
-        StartCoroutine(FadeHealthBar(false));
+        if (gameObject.activeInHierarchy) {
+            StartCoroutine(FadeHealthBar(false));
+        } else {
+            group.alpha = 0.0f;
+        }
     }
 
     private void ShowBar() {
@@ -75,7 +79,11 @@ public class HealthBar : MonoBehaviour
             return;
         }
         shown = true;
-        StartCoroutine(FadeHealthBar(true));
+        if (gameObject.activeInHierarchy) {
+            StartCoroutine(FadeHealthBar(true));
+        } else {
+            group.alpha = 1.0f;
+        }
     }
 
     private IEnumerator FadeHealthBar(bool up) {
