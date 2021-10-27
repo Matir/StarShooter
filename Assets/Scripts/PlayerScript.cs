@@ -56,9 +56,11 @@ public class PlayerScript : MonoBehaviour
     public void ResetPlayer() {
         if (hpbar != null) {
             hpbar.SetHealth(1.0f);
+            hpbar.gameObject.SetActive(true);
         }
         currhp = hp;
         transform.position = startPos;
+        gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -121,8 +123,8 @@ public class PlayerScript : MonoBehaviour
             if (levelController != null) {
                 levelController.PlayerDie();
             }
-            rigidBody = null;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            hpbar.gameObject.SetActive(false);
         }
     }
 

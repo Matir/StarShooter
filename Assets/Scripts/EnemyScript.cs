@@ -68,6 +68,8 @@ public class EnemyScript : MonoBehaviour
     void MoveTowardsPlayer() {
         if (playerBody == null)
             return;
+        if (!playerBody.gameObject.activeInHierarchy)
+            return;
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float delta = rb.position.x - playerBody.position.x;
         // This overshoots so badly

@@ -47,6 +47,7 @@ public class LevelController : MonoBehaviour
         if (player != null && currentState != GameState.New) {
             player.GetComponent<PlayerScript>().ResetPlayer();
         }
+        EndGameScreen.SetActive(false);
         currentState = GameState.Playing;
         LaunchLevel();
     }
@@ -54,7 +55,10 @@ public class LevelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Check if we should reset
+        if (currentState == GameState.Over && Input.GetKeyDown(KeyCode.R)) {
+            NewGame();
+        }
     }
 
     // Called on player death
@@ -85,6 +89,7 @@ public class LevelController : MonoBehaviour
     // Show the gameover screen now
     void ShowGameOverImmediate() {
         Debug.Log("Showing game over.");
+        EndGameScreen.SetActive(true);
     }
 
     // Launch the next level
