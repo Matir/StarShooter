@@ -12,9 +12,11 @@ public class LevelController : MonoBehaviour
 
     public GameObject HUD;
     public GameObject EndGameScreen;
+    public List<GameObject> EnemyPrefabs;
 
     public float playerLineY = -4.0f;
     public float enemyLineY = 3.5f;
+    public float enemySpacing = 1.0f;
 
     public float gameOverScreenDelay = 1.0f;
 
@@ -24,6 +26,8 @@ public class LevelController : MonoBehaviour
     private int enemiesKilled = 0;
     private GameState currentState = GameState.New;
     private HUDScript hudScript = null;
+    private Dictionary<string, GameObject> enemyPrefabMap;
+    private List<GameObject> levelEnemies = new List<GameObject>();
     
     // Start is called before the first frame update
     void Start()
@@ -37,6 +41,19 @@ public class LevelController : MonoBehaviour
         } else {
             Debug.Log("Need a HUD Component!");
         }
+
+        // Convert EnemyPrefabs to dict for performance
+        enemyPrefabMap = new Dictionary<string, GameObject>();
+        foreach (var enemy in EnemyPrefabs) {
+            var enemyScript = enemy.GetComponent<EnemyScript>();
+            var name = enemyScript.EnemyName;
+            if (enemyPrefabMap.ContainsKey(name)) {
+                Debug.Log("Duplicate enemy name: " + name);
+            } else {
+                enemyPrefabMap.Add(name, enemy);
+            }
+        }
+
         NewGame();
     }
 
@@ -97,5 +114,31 @@ public class LevelController : MonoBehaviour
         levelNo++;
         Debug.Log("Starting level " + levelNo);
         hudScript.SetLevel(levelNo);
+        LoadEnemies(GetLevelConfig(levelNo));
+    }
+
+    List<string> GetLevelConfig(int levelNo) {
+        // TODO: real implementation
+        return new List<string>{"BasicEnemy"};
+    }
+
+    // Load enemies based on list
+    void LoadEnemies(List<string> enemies) {
+        int numEnemies = enemies.Count;
+        float startPos = (float)(numEnemies - 1) / 2.0f * enemySpacing;
+        int i = 0;
+        foreach(var name in enemies) {
+            if (!enemyPrefabMap.ContainsKey(name)) {
+                Debug.Log("Could not find enemy: " + name);
+                continue;
+            }
+            float x = startPos + i * enemySpacing;
+            GameObject enemy = Instantiate(
+                enemyPrefabMap[name],
+                new Vector3(x, enemyLineY, 0),
+                Quaternion.Euler(0, 0, 180)
+            );
+            levelEnemies.Add(enemy);
+        }
     }
 }

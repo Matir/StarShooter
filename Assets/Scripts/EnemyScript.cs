@@ -14,6 +14,7 @@ public class EnemyScript : MonoBehaviour
     public float hpbarVerticalOffset = 0.8f;
     public Color healthBarColor = Color.red;
     public int pointValue = 1;
+    public string EnemyName;
 
     private Rigidbody2D playerBody;
     private int i=0;
