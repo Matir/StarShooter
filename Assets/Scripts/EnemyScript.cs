@@ -103,7 +103,6 @@ public class EnemyScript : MonoBehaviour
     }
 
     void HitFire(GameObject fire) {
-        Debug.Log("I'm triggered!");
         // TODO: trigger any dying effect, etc.
         ShotScript shot = fire.GetComponent<ShotScript>();
         currhp -= shot.GetDamage();
@@ -114,7 +113,7 @@ public class EnemyScript : MonoBehaviour
         if (currhp <= 0) {
             // TODO: big show of dying, scoring, etc.
             if (levelController != null) {
-                levelController.EnemyDeath(gameObject);
+                levelController.EnemyDeath(gameObject, pointValue);
             }
             Destroy(gameObject);
         }

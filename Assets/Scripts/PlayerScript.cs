@@ -23,11 +23,16 @@ public class PlayerScript : MonoBehaviour
     private HealthBar hpbar = null;
     private Vector3 startPos;
 
+    // Awake is called before Start
+    void Awake() {
+        rigidBody = GetComponent<Rigidbody2D>();
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
-        startPos = gameObject.transform.position;
-        rigidBody = GetComponent<Rigidbody2D>();
+        startPos = transform.position;
+        Debug.Log("Initial position: " + startPos);
         if (healthBarPrefab != null) {
             GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
             if (canvas == null) {
@@ -45,15 +50,15 @@ public class PlayerScript : MonoBehaviour
         if (lvlc != null) {
             levelController = lvlc.GetComponent<LevelController>();
         }
-        Reset();
+        ResetPlayer();
     }
 
-    public void Reset() {
+    public void ResetPlayer() {
         if (hpbar != null) {
             hpbar.SetHealth(1.0f);
         }
         currhp = hp;
-        gameObject.transform.position = startPos;
+        transform.position = startPos;
     }
 
     // Update is called once per frame

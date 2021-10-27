@@ -15,8 +15,8 @@ public class HealthBar : MonoBehaviour
     private int fadeSteps = 10;
     private bool shown = true;
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is even before Start
+    void Awake()
     {
         group = GetComponent<CanvasGroup>();
         if (hideFull) {
@@ -27,8 +27,12 @@ public class HealthBar : MonoBehaviour
         if (fillImage == null) {
             Debug.Log("Could not find fill image for health bar!");
         }
+    }
+
+    // Start is called before first frame update
+    void Start() {
         fillImage.color = barColor;
-        Debug.Log("Color: " + barColor);
+        //Debug.Log("Color: " + barColor);
     }
 
     // Update is called once per frame
@@ -44,11 +48,10 @@ public class HealthBar : MonoBehaviour
     public void SetHealth(float health) {
         health = Mathf.Clamp(health, 0.0f, 1.0f);
         fillImage.fillAmount = health;
-        Debug.Log("Health: " + health + " Full: " + fullAmount);
+        //Debug.Log("Health: " + health + " Full: " + fullAmount);
         if (hideFull && health >= fullAmount) {
             // Hide
             HideBar();
-            Debug.Log("Full");
         } else {
             // Show
             ShowBar();

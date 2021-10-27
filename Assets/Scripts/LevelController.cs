@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     enum GameState {
+        New,
         Playing,
         Over,
     }
@@ -15,11 +16,13 @@ public class LevelController : MonoBehaviour
     public float playerLineY = -4.0f;
     public float enemyLineY = 3.5f;
 
+    public float gameOverScreenDelay = 1.0f;
+
     private GameObject player;
     private int levelNo = 0;
     private int score = 0;
     private int enemiesKilled = 0;
-    private GameState currentState = GameState.Over;
+    private GameState currentState = GameState.New;
     private HUDScript hudScript = null;
     
     // Start is called before the first frame update
@@ -41,9 +44,10 @@ public class LevelController : MonoBehaviour
         levelNo = 0;
         score = 0;
         enemiesKilled = 0;
-        if (player != null) {
-            player.GetComponent<PlayerScript>().Reset();
+        if (player != null && currentState != GameState.New) {
+            player.GetComponent<PlayerScript>().ResetPlayer();
         }
+        currentState = GameState.Playing;
         LaunchLevel();
     }
 
@@ -55,22 +59,32 @@ public class LevelController : MonoBehaviour
 
     // Called on player death
     public void PlayerDie() {
+        currentState = GameState.Over;
         ShowGameOver();
     }
 
     // Called on enemy death
-    public void EnemyDeath(GameObject who) {
-
+    public void EnemyDeath(GameObject who, int pointValue) {
+        score += pointValue;
+        enemiesKilled++;
+        hudScript.SetScore(score);
+        // Track levels here
     }
 
     // Show the gameover screen
     void ShowGameOver() {
-        // pass
+        Debug.Log("Game over triggered!");
+        StartCoroutine(ShowGameOverDelay());
+    }
+
+    IEnumerator ShowGameOverDelay() {
+        yield return new WaitForSeconds(gameOverScreenDelay);
+        ShowGameOverImmediate();
     }
 
     // Show the gameover screen now
     void ShowGameOverImmediate() {
-        // pass
+        Debug.Log("Showing game over.");
     }
 
     // Launch the next level
