@@ -977,10 +977,12 @@ MonoBehaviour:
   EndGameScreen: {fileID: 240327638}
   EnemyPrefabs:
   - {fileID: 4524216901149148725, guid: 97d4d8b044b7a8d5e9fdf7c8b4b12e44, type: 3}
+  - {fileID: 8069612305202354049, guid: b68fa9d8be55d5f45a0cc080f2ee477e, type: 3}
   playerLineY: -4
   enemyLineY: 3.5
   enemySpacing: 1
   gameOverScreenDelay: 1
+  levelIncrementDelay: 1
 --- !u!4 &1962999487
 Transform:
   m_ObjectHideFlags: 0

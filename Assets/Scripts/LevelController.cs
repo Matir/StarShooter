@@ -145,7 +145,7 @@ public class LevelController : MonoBehaviour
         if ((levelNo % 2) == 1) {
             return new List<string>{"BasicEnemy"};
         }
-        return new List<string>{"BasicEnemy", "BasicEnemy"};
+        return new List<string>{"BasicEnemy", "HeavyEnemy"};
     }
 
     // Load enemies based on list
