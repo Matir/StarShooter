@@ -154,3 +154,4 @@ MonoBehaviour:
   healthBarColor: {r: 1, g: 0, b: 0, a: 1}
   pointValue: 1
   EnemyName: BasicEnemy
+  deathExplosion: {fileID: 3146161989128731773, guid: 12915ba7431325c0b82c489e078758e5, type: 3}

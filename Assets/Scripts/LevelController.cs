@@ -154,7 +154,6 @@ public class LevelController : MonoBehaviour
 
     // Load enemies based on list
     void LoadEnemies(List<string> enemies) {
-        Debug.Log("Instantiating: " + enemies + " " + enemies.Count);
         int numEnemies = enemies.Count;
         float startPos = (float)(numEnemies - 1) / 2.0f * enemySpacing;
         int i = 0;

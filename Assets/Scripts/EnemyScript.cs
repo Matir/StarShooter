@@ -15,6 +15,7 @@ public class EnemyScript : MonoBehaviour
     public Color healthBarColor = Color.red;
     public int pointValue = 1;
     public string EnemyName;
+    public GameObject deathExplosion;
 
     private Rigidbody2D playerBody;
     private int i=0;
@@ -115,9 +116,15 @@ public class EnemyScript : MonoBehaviour
         }
         Destroy(fire);
         if (currhp <= 0) {
-            // TODO: big show of dying, scoring, etc.
+            // TODO: big show of dying, etc.
             if (levelController != null) {
                 levelController.EnemyDeath(gameObject, pointValue);
+            }
+            if (deathExplosion != null) {
+                Instantiate(
+                    deathExplosion,
+                    transform.position,
+                    Quaternion.identity);
             }
             Destroy(gameObject);
         }

@@ -11,3 +11,6 @@ TODO:
   - [ ] Huge Fighter
 - [X] Overall Score
 - [ ] Shields (Recharge over time)
+- [ ] Starfield Effect
+- [ ] Explosions on Hit
+- [ ] Explosions on Destroy
