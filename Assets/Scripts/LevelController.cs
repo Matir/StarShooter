@@ -19,6 +19,7 @@ public class LevelController : MonoBehaviour
     public float enemySpacing = 1.0f;
 
     public float gameOverScreenDelay = 1.0f;
+    public float levelIncrementDelay = 1.0f;
 
     private GameObject player;
     private int levelNo = 0;
@@ -60,12 +61,18 @@ public class LevelController : MonoBehaviour
     void NewGame() {
         levelNo = 0;
         score = 0;
+        hudScript.SetScore(0);
         enemiesKilled = 0;
         if (player != null && currentState != GameState.New) {
             player.GetComponent<PlayerScript>().ResetPlayer();
         }
         EndGameScreen.SetActive(false);
         currentState = GameState.Playing;
+        // Kill any leftovers
+        foreach(var e in levelEnemies) {
+            Destroy(e);
+        }
+        levelEnemies.Clear();
         LaunchLevel();
     }
 
@@ -89,7 +96,17 @@ public class LevelController : MonoBehaviour
         score += pointValue;
         enemiesKilled++;
         hudScript.SetScore(score);
-        // Track levels here
+        if (!levelEnemies.Remove(who)) {
+            Debug.Log("Unknown enemy died!");
+        }
+        if (levelEnemies.Count == 0) {
+            StartCoroutine(IncrementLevel());
+        }
+    }
+
+    IEnumerator IncrementLevel() {
+        yield return new WaitForSeconds(levelIncrementDelay);
+        LaunchLevel();
     }
 
     // Show the gameover screen
