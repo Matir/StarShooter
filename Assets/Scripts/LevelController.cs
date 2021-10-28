@@ -106,6 +106,9 @@ public class LevelController : MonoBehaviour
 
     IEnumerator IncrementLevel() {
         yield return new WaitForSeconds(levelIncrementDelay);
+        if (currentState != GameState.Playing) {
+            yield break;
+        }
         LaunchLevel();
     }
 
@@ -128,6 +131,9 @@ public class LevelController : MonoBehaviour
 
     // Launch the next level
     void LaunchLevel() {
+        if (currentState != GameState.Playing) {
+            return;
+        }
         levelNo++;
         Debug.Log("Starting level " + levelNo);
         hudScript.SetLevel(levelNo);
@@ -136,11 +142,15 @@ public class LevelController : MonoBehaviour
 
     List<string> GetLevelConfig(int levelNo) {
         // TODO: real implementation
-        return new List<string>{"BasicEnemy"};
+        if ((levelNo % 2) == 1) {
+            return new List<string>{"BasicEnemy"};
+        }
+        return new List<string>{"BasicEnemy", "BasicEnemy"};
     }
 
     // Load enemies based on list
     void LoadEnemies(List<string> enemies) {
+        Debug.Log("Instantiating: " + enemies + " " + enemies.Count);
         int numEnemies = enemies.Count;
         float startPos = (float)(numEnemies - 1) / 2.0f * enemySpacing;
         int i = 0;
@@ -150,12 +160,14 @@ public class LevelController : MonoBehaviour
                 continue;
             }
             float x = startPos + i * enemySpacing;
+            Debug.Log("x="+x);
             GameObject enemy = Instantiate(
                 enemyPrefabMap[name],
                 new Vector3(x, enemyLineY, 0),
                 Quaternion.Euler(0, 0, 180)
             );
             levelEnemies.Add(enemy);
+            i++;
         }
     }
 }
