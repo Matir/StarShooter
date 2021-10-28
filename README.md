@@ -1,13 +1,13 @@
 TODO:
 
-- [ ] Health Meters
-- [ ] Restart/Win/Lose Screen
+- [X] Health Meters
+- [X] Restart/Win/Lose Screen
 - [ ] Weapon Types
-  - [ ] Heavy Missile
+  - [X] Heavy Missile (BlueShot)
   - [ ] Guided Missile
   - [ ] Laser
 - [ ] Enemy Types
   - [ ] Group
   - [ ] Huge Fighter
-- [ ] Overall Score
+- [X] Overall Score
 - [ ] Shields (Recharge over time)

@@ -18,6 +18,7 @@ public class EnemyScript : MonoBehaviour
 
     private Rigidbody2D playerBody;
     private int i=0;
+    private int enemyLevel=1;
     private float lastFireTime = 0.0f;
     private int currhp;
     private HealthBar hpbar = null;
@@ -130,5 +131,13 @@ public class EnemyScript : MonoBehaviour
 
     public void SetLevelController(LevelController c) {
         levelController = c;
+    }
+
+    public void SetLevel(int level) {
+        enemyLevel = level;
+        if (level > 4) {
+            hp += (level-4)/2;
+            currhp += (level-4)/2;
+        }
     }
 }

@@ -10,6 +10,8 @@ public class LevelController : MonoBehaviour
         Over,
     }
 
+    private const string highScorePref = "HighScore";
+
     public GameObject HUD;
     public GameObject EndGameScreen;
     public List<GameObject> EnemyPrefabs;
@@ -126,6 +128,8 @@ public class LevelController : MonoBehaviour
     // Show the gameover screen now
     void ShowGameOverImmediate() {
         Debug.Log("Showing game over.");
+        int highScore = MaybeSaveHighScore(score);
+        hudScript.SetHighScore(highScore);
         EndGameScreen.SetActive(true);
     }
 
@@ -166,8 +170,18 @@ public class LevelController : MonoBehaviour
                 new Vector3(x, enemyLineY, 0),
                 Quaternion.Euler(0, 0, 180)
             );
+            enemy.GetComponent<EnemyScript>().SetLevel(levelNo);
             levelEnemies.Add(enemy);
             i++;
         }
+    }
+
+    int MaybeSaveHighScore(int newScore) {
+        int highScore = PlayerPrefs.GetInt(highScorePref, 0);
+        if (newScore > highScore) {
+            highScore = newScore;
+            PlayerPrefs.SetInt(highScorePref, highScore);
+        }
+        return highScore;
     }
 }
