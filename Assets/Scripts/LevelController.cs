@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelController : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class LevelController : MonoBehaviour
     public float playerLineY = -4.0f;
     public float enemyLineY = 3.5f;
     public float enemySpacing = 1.0f;
+    public float powerupLineY = 2.75f;
+    public float powerUpMinX = -9.0f;
+    public float powerUpMaxX = 9.0f;
 
     public float gameOverScreenDelay = 1.0f;
     public float levelIncrementDelay = 1.0f;
@@ -197,5 +201,13 @@ public class LevelController : MonoBehaviour
         // Do some stuff
         Debug.Log("Power up was hit!");
         playerScript.ApplyPowerUp(script.PType);
+    }
+
+    private void PlacePowerUp() {
+        float x = Random.Range(powerUpMinX, powerUpMaxX);
+        Vector3 pos = new Vector3(x, powerupLineY, 0);
+        GameObject power = Instantiate(PowerUp, pos, Quaternion.identity);
+        PowerUpType pt = Utils.GetRandomElement(PowerUpScript.PowerUpTypes);
+        power.GetComponent<PowerUpScript>().PType = pt;
     }
 }

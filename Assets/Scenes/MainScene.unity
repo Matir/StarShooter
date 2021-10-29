@@ -1118,6 +1118,7 @@ MonoBehaviour:
   playerLineY: -4
   enemyLineY: 3.5
   enemySpacing: 1
+  powerupLineY: 2.75
   gameOverScreenDelay: 1
   levelIncrementDelay: 1
 --- !u!4 &1962999487

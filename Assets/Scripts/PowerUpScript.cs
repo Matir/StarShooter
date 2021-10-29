@@ -16,6 +16,7 @@ public class PowerUpScript : MonoBehaviour {
 
     public delegate void NotifyPowerUp(PowerUpScript script);
     public static event NotifyPowerUp OnPowerUpHit;
+    public static List<PowerUpType> PowerUpTypes = Utils.EnumToList<PowerUpType>();
 
     private PowerUpType _type = PowerUpType.MissileUpgrade;
     private SpriteRenderer sRenderer = null;
