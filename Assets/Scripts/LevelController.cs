@@ -14,6 +14,7 @@ public class LevelController : MonoBehaviour
 
     public GameObject HUD;
     public GameObject EndGameScreen;
+    public GameObject PowerUp;
     public List<GameObject> EnemyPrefabs;
 
     public float playerLineY = -4.0f;
@@ -31,6 +32,11 @@ public class LevelController : MonoBehaviour
     private HUDScript hudScript = null;
     private Dictionary<string, GameObject> enemyPrefabMap;
     private List<GameObject> levelEnemies = new List<GameObject>();
+    
+    // Awake is called even before Start
+    void Awake() {
+        PowerUpScript.OnPowerUpHit += OnPowerUpHit;
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -182,5 +188,10 @@ public class LevelController : MonoBehaviour
             PlayerPrefs.SetInt(highScorePref, highScore);
         }
         return highScore;
+    }
+
+    private void OnPowerUpHit(PowerUpScript script) {
+        // Do some stuff
+        Debug.Log("Power up was hit!");
     }
 }

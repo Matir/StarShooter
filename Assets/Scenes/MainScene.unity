@@ -1111,6 +1111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HUD: {fileID: 1022625924}
   EndGameScreen: {fileID: 240327638}
+  PowerUp: {fileID: 0}
   EnemyPrefabs:
   - {fileID: 4524216901149148725, guid: 97d4d8b044b7a8d5e9fdf7c8b4b12e44, type: 3}
   - {fileID: 8069612305202354049, guid: b68fa9d8be55d5f45a0cc080f2ee477e, type: 3}
