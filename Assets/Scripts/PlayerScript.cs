@@ -8,12 +8,14 @@ public class PlayerScript : MonoBehaviour
 {
     public float speed = 10.0f;
     public float minFireDelay = 1.0f;
-    public GameObject projectile;
+    public GameObject[] projectiles;
     public GameObject healthBarPrefab;
     public int hp = 10;
     public float hpbarVerticalOffset = -0.8f;
     public Color healthBarColor = Color.green;
 
+    private GameObject projectile;
+    private int unlockedProjectiles = 1;
     private LevelController levelController;
     private float threshold = 0.01f;
     private Rigidbody2D rigidBody;
@@ -26,6 +28,12 @@ public class PlayerScript : MonoBehaviour
     // Awake is called before Start
     void Awake() {
         rigidBody = GetComponent<Rigidbody2D>();
+        GameObject lvlc = GameObject.Find("LevelController");
+        if (lvlc != null) {
+            levelController = lvlc.GetComponent<LevelController>();
+        } else {
+            Debug.Log("Unable to find level controller!");
+        }
     }
     
     // Start is called before the first frame update
@@ -46,10 +54,6 @@ public class PlayerScript : MonoBehaviour
             hpbar = barobj.GetComponent<HealthBar>();
             hpbar.barColor = healthBarColor;
         }
-        GameObject lvlc = GameObject.Find("LevelController");
-        if (lvlc != null) {
-            levelController = lvlc.GetComponent<LevelController>();
-        }
         ResetPlayer();
     }
 
@@ -61,16 +65,28 @@ public class PlayerScript : MonoBehaviour
         currhp = hp;
         transform.position = startPos;
         gameObject.SetActive(true);
+        projectile = projectiles[0];
+        unlockedProjectiles = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Check for change ammo
+        if (Input.GetKeyDown(KeyCode.Tab)) {
+            int curAmmo = Array.IndexOf<GameObject>(projectiles, projectile);
+            curAmmo = (curAmmo + 1) % unlockedProjectiles;
+            projectile = projectiles[curAmmo];
+            Debug.Log("Ammo is now " + projectile);
+        }
+
+        // Check for firing
         firing = Input.GetButton("Fire1");
         if (firing && (Time.time > lastFireTime + minFireDelay)) {
             lastFireTime = Time.time;
             FireCannon();
         }
+
         if (hpbar != null) {
             hpbar.Position(
                 transform.position.x,
@@ -131,6 +147,23 @@ public class PlayerScript : MonoBehaviour
     void OnDestroy() {
         if (hpbar != null) {
             Destroy(hpbar.gameObject);
+        }
+    }
+
+    public void ApplyPowerUp(PowerUpType power) {
+        // Apply a power up
+        switch (power) {
+            case PowerUpType.Shield:
+                break;
+            case PowerUpType.MissileUpgrade:
+                if (unlockedProjectiles < projectiles.Length) {
+                    unlockedProjectiles++;
+                }
+                Debug.Log("Unlocked projectiles: " + unlockedProjectiles);
+                break;
+            default:
+                Debug.Log("Received unknown power up type: " + power);
+                break;
         }
     }
 }

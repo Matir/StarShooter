@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpScript : MonoBehaviour
-{
-    public enum PowerUpType {
-        Shield,
-        MissileUpgrade,
-    }
+public enum PowerUpType {
+    Shield,
+    MissileUpgrade,
+}
+
+public class PowerUpScript : MonoBehaviour {
 
     public Sprite ShieldSprite;
     public Sprite MissileSprite;
@@ -17,7 +17,7 @@ public class PowerUpScript : MonoBehaviour
     public delegate void NotifyPowerUp(PowerUpScript script);
     public static event NotifyPowerUp OnPowerUpHit;
 
-    private PowerUpType _type;
+    private PowerUpType _type = PowerUpType.MissileUpgrade;
     private SpriteRenderer sRenderer = null;
     private int fadeSteps = 10;
     private bool isHit = false;

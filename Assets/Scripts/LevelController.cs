@@ -25,6 +25,7 @@ public class LevelController : MonoBehaviour
     public float levelIncrementDelay = 1.0f;
 
     private GameObject player;
+    private PlayerScript playerScript;
     private int levelNo = 0;
     private int score = 0;
     private int enemiesKilled = 0;
@@ -44,6 +45,8 @@ public class LevelController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) {
             Debug.Log("LevelController failed to find player!");
+        } else {
+            playerScript = player.GetComponent<PlayerScript>();
         }
         if (HUD != null) {
             hudScript = HUD.GetComponent<HUDScript>();
@@ -193,5 +196,6 @@ public class LevelController : MonoBehaviour
     private void OnPowerUpHit(PowerUpScript script) {
         // Do some stuff
         Debug.Log("Power up was hit!");
+        playerScript.ApplyPowerUp(script.PType);
     }
 }
