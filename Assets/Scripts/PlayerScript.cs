@@ -13,7 +13,9 @@ public class PlayerScript : MonoBehaviour
     public int hp = 10;
     public float hpbarVerticalOffset = -0.8f;
     public Color healthBarColor = Color.green;
+    public float shieldLife = 5.0f;
 
+    private GameObject shieldObject;
     private GameObject projectile;
     private int unlockedProjectiles = 1;
     private LevelController levelController;
@@ -24,6 +26,29 @@ public class PlayerScript : MonoBehaviour
     private int currhp;
     private HealthBar hpbar = null;
     private Vector3 startPos;
+    private bool shields_ = false;
+    private Coroutine shieldDisableCoroutine = null;
+
+    public bool shieldsEnabled {
+        get {
+            return shields_;
+        }
+        set {
+            shields_ = value;
+            if (shieldDisableCoroutine != null) {
+                    StopCoroutine(shieldDisableCoroutine);
+                    shieldDisableCoroutine = null;
+            }
+            if (shields_) {
+                // set future timeout
+                shieldObject.SetActive(true);
+                shieldDisableCoroutine = StartCoroutine(DisableShieldTimer());
+            } else {
+                // Remove
+                shieldObject.SetActive(false);
+            }
+        }
+    }
 
     // Awake is called before Start
     void Awake() {
@@ -34,6 +59,7 @@ public class PlayerScript : MonoBehaviour
         } else {
             Debug.Log("Unable to find level controller!");
         }
+        shieldObject = transform.Find("Shields").gameObject;
     }
     
     // Start is called before the first frame update
@@ -67,6 +93,7 @@ public class PlayerScript : MonoBehaviour
         gameObject.SetActive(true);
         projectile = projectiles[0];
         unlockedProjectiles = 1;
+        shieldsEnabled = false;
     }
 
     // Update is called once per frame
@@ -128,9 +155,10 @@ public class PlayerScript : MonoBehaviour
     }
 
     void HitFire(GameObject fire) {
-        // TODO: Game Over
         ShotScript shot = fire.GetComponent<ShotScript>();
-        currhp -= shot.GetDamage();
+        if (!shieldsEnabled) {
+            currhp -= shot.GetDamage();
+        }
         if (hpbar != null) {
             hpbar.SetHealth((float)(currhp)/(float)(hp));
         }
@@ -154,6 +182,7 @@ public class PlayerScript : MonoBehaviour
         // Apply a power up
         switch (power) {
             case PowerUpType.Shield:
+                shieldsEnabled = true;
                 break;
             case PowerUpType.MissileUpgrade:
                 if (unlockedProjectiles < projectiles.Length) {
@@ -169,5 +198,11 @@ public class PlayerScript : MonoBehaviour
                 Debug.Log("Received unknown power up type: " + power);
                 break;
         }
+    }
+
+    private IEnumerator DisableShieldTimer() {
+        yield return new WaitForSeconds(shieldLife);
+        shieldsEnabled = false;
+        shieldDisableCoroutine = null;
     }
 }
