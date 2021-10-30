@@ -1111,7 +1111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HUD: {fileID: 1022625924}
   EndGameScreen: {fileID: 240327638}
-  PowerUp: {fileID: 0}
+  PowerUp: {fileID: 8896291238574831695, guid: 5a1235f8fce9a6e5abab4f4728b34f8b, type: 3}
   EnemyPrefabs:
   - {fileID: 4524216901149148725, guid: 97d4d8b044b7a8d5e9fdf7c8b4b12e44, type: 3}
   - {fileID: 8069612305202354049, guid: b68fa9d8be55d5f45a0cc080f2ee477e, type: 3}
@@ -1119,8 +1119,11 @@ MonoBehaviour:
   enemyLineY: 3.5
   enemySpacing: 1
   powerupLineY: 2.75
+  powerUpMinX: -9
+  powerUpMaxX: 9
   gameOverScreenDelay: 1
   levelIncrementDelay: 1
+  powerUpChancePerTick: 0.1
 --- !u!4 &1962999487
 Transform:
   m_ObjectHideFlags: 0

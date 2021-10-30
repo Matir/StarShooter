@@ -28,6 +28,8 @@ public class LevelController : MonoBehaviour
     public float gameOverScreenDelay = 1.0f;
     public float levelIncrementDelay = 1.0f;
 
+    public float powerUpChancePerTick = 0.08f;
+
     private GameObject player;
     private PlayerScript playerScript;
     private int levelNo = 0;
@@ -37,7 +39,10 @@ public class LevelController : MonoBehaviour
     private HUDScript hudScript = null;
     private Dictionary<string, GameObject> enemyPrefabMap;
     private List<GameObject> levelEnemies = new List<GameObject>();
-    
+    private Coroutine powerUpCoroutine = null;
+    private float powerUpChance = 0.0f;
+    private float powerUpTick = 3.0f;
+
     // Awake is called even before Start
     void Awake() {
         PowerUpScript.OnPowerUpHit += OnPowerUpHit;
@@ -88,6 +93,8 @@ public class LevelController : MonoBehaviour
             Destroy(e);
         }
         levelEnemies.Clear();
+        // Start a power up coroutine
+        powerUpCoroutine = StartCoroutine(CreatePowerups());
         LaunchLevel();
     }
 
@@ -103,6 +110,9 @@ public class LevelController : MonoBehaviour
     // Called on player death
     public void PlayerDie() {
         currentState = GameState.Over;
+        if (powerUpCoroutine != null) {
+            StopCoroutine(powerUpCoroutine);
+        }
         ShowGameOver();
     }
 
@@ -195,6 +205,19 @@ public class LevelController : MonoBehaviour
             PlayerPrefs.SetInt(highScorePref, highScore);
         }
         return highScore;
+    }
+
+    private IEnumerator CreatePowerups() {
+        // Create powerups periodically
+        while (true) {
+            powerUpChance += powerUpChancePerTick;
+            if (Utils.RandomChance(powerUpChance)) {
+                Debug.Log("Creating a powerup.");
+                PlacePowerUp();
+                powerUpChance = 0.0f;
+            }
+            yield return new WaitForSeconds(powerUpTick);
+        }
     }
 
     private void OnPowerUpHit(PowerUpScript script) {
