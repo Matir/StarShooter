@@ -13,8 +13,8 @@ public class PowerUpScript : MonoBehaviour {
     public Sprite ShieldSprite;
     public Sprite MissileSprite;
     public Sprite HealthSprite;
-    public float Lifetime = 1.5f;
-    public float FadeTime = 0.5f;
+    public float Lifetime = 3.0f;
+    public float FadeTime = 0.3f;
 
     public delegate void NotifyPowerUp(PowerUpScript script);
     public static event NotifyPowerUp OnPowerUpHit;
@@ -24,6 +24,7 @@ public class PowerUpScript : MonoBehaviour {
     private SpriteRenderer sRenderer = null;
     private int fadeSteps = 10;
     private bool isHit = false;
+    private bool isDestroying = false;
 
 
     public PowerUpType PType {
@@ -99,6 +100,10 @@ public class PowerUpScript : MonoBehaviour {
     }
 
     IEnumerator FadeOutAndDestroy() {
+        if (isDestroying) {
+            yield break;
+        }
+        isDestroying = true;
         for(int i=fadeSteps-1; i>0; i--) {
             SetAlpha((float)i/(float)fadeSteps);
             yield return new WaitForSeconds(FadeTime/(float)fadeSteps);
@@ -121,6 +126,7 @@ public class PowerUpScript : MonoBehaviour {
             // Already hit
             return;
         }
+        Destroy(hit);
         isHit = true;
         OnPowerUpHit(this);
         StartCoroutine(FadeOutAndDestroy());

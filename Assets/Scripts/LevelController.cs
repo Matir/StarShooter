@@ -33,7 +33,7 @@ public class LevelController : MonoBehaviour
     private GameObject player;
     private PlayerScript playerScript;
     private int levelNo = 0;
-    private int score = 0;
+    private int score_ = 0;
     private int enemiesKilled = 0;
     private GameState currentState = GameState.New;
     private HUDScript hudScript = null;
@@ -42,6 +42,18 @@ public class LevelController : MonoBehaviour
     private Coroutine powerUpCoroutine = null;
     private float powerUpChance = 0.0f;
     private float powerUpTick = 3.0f;
+
+    private int score {
+        get {
+            return score_;
+        }
+        set {
+            score_ = value;
+            if (hudScript != null) {
+                hudScript.SetScore(score_);
+            }
+        }
+    }
 
     // Awake is called even before Start
     void Awake() {
@@ -81,7 +93,6 @@ public class LevelController : MonoBehaviour
     void NewGame() {
         levelNo = 0;
         score = 0;
-        hudScript.SetScore(0);
         enemiesKilled = 0;
         if (player != null && currentState != GameState.New) {
             player.GetComponent<PlayerScript>().ResetPlayer();
@@ -120,7 +131,6 @@ public class LevelController : MonoBehaviour
     public void EnemyDeath(GameObject who, int pointValue) {
         score += pointValue;
         enemiesKilled++;
-        hudScript.SetScore(score);
         if (!levelEnemies.Remove(who)) {
             Debug.Log("Unknown enemy died!");
         }
@@ -223,6 +233,7 @@ public class LevelController : MonoBehaviour
     private void OnPowerUpHit(PowerUpScript script) {
         // Do some stuff
         Debug.Log("Power up was hit!");
+        score++;
         playerScript.ApplyPowerUp(script.PType);
     }
 
