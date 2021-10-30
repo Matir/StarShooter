@@ -13,7 +13,7 @@ TODO:
 - [X] Overall Score
 - [X] Shields
   - [ ] Make fade
-- [ ] Starfield Effect
+- [X] Starfield Effect
 - [ ] Explosions on Hit
 - [X] Explosions on Destroy
 - [X] Ammo type in UI
