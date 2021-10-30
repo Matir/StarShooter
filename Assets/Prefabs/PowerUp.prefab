@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShieldSprite: {fileID: 21300000, guid: ed2b896948d82b524aaf130ae6ef25d6, type: 3}
   MissileSprite: {fileID: 21300000, guid: 8ff8ca6fd3c587173ad6d6ee2fe29d40, type: 3}
+  HealthSprite: {fileID: 21300000, guid: b0b43e005f3171bf1ae75116e952c3d2, type: 3}
   Lifetime: 2.5
   FadeTime: 0.5
 --- !u!61 &8896291238574831683

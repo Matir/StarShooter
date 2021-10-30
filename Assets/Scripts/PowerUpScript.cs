@@ -5,12 +5,14 @@ using UnityEngine;
 public enum PowerUpType {
     Shield,
     MissileUpgrade,
+    Health,
 }
 
 public class PowerUpScript : MonoBehaviour {
 
     public Sprite ShieldSprite;
     public Sprite MissileSprite;
+    public Sprite HealthSprite;
     public float Lifetime = 1.5f;
     public float FadeTime = 0.5f;
 
@@ -63,6 +65,9 @@ public class PowerUpScript : MonoBehaviour {
                 break;
             case PowerUpType.MissileUpgrade:
                 sRenderer.sprite = MissileSprite;
+                break;
+            case PowerUpType.Health:
+                sRenderer.sprite = HealthSprite;
                 break;
             default:
                 Debug.Log("Could not find power up type!");

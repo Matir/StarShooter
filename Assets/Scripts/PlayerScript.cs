@@ -161,6 +161,10 @@ public class PlayerScript : MonoBehaviour
                 }
                 Debug.Log("Unlocked projectiles: " + unlockedProjectiles);
                 break;
+            case PowerUpType.Health:
+                currhp = hp;
+                hpbar.SetHealth(1.0f);
+                break;
             default:
                 Debug.Log("Received unknown power up type: " + power);
                 break;
