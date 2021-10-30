@@ -6,11 +6,14 @@ TODO:
   - [X] Heavy Missile (BlueShot)
   - [ ] Guided Missile
   - [ ] Laser
+  - [ ] Triple Missile
 - [ ] Enemy Types
-  - [ ] Group
+  - [X] Group
   - [ ] Huge Fighter
 - [X] Overall Score
-- [ ] Shields (Recharge over time)
+- [X] Shields
+  - [ ] Make fade
 - [ ] Starfield Effect
 - [ ] Explosions on Hit
-- [ ] Explosions on Destroy
+- [X] Explosions on Destroy
+- [X] Ammo type in UI

@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour
     public float hpbarVerticalOffset = -0.8f;
     public Color healthBarColor = Color.green;
     public float shieldLife = 5.0f;
+    public GameObject HUD;
 
     private GameObject shieldObject;
     private GameObject projectile;
@@ -28,6 +29,7 @@ public class PlayerScript : MonoBehaviour
     private Vector3 startPos;
     private bool shields_ = false;
     private Coroutine shieldDisableCoroutine = null;
+    private HUDScript hudScript = null;
 
     public bool shieldsEnabled {
         get {
@@ -60,6 +62,7 @@ public class PlayerScript : MonoBehaviour
             Debug.Log("Unable to find level controller!");
         }
         shieldObject = transform.Find("Shields").gameObject;
+        hudScript = HUD.GetComponent<HUDScript>();
     }
     
     // Start is called before the first frame update
@@ -104,7 +107,9 @@ public class PlayerScript : MonoBehaviour
             int curAmmo = Array.IndexOf<GameObject>(projectiles, projectile);
             curAmmo = (curAmmo + 1) % unlockedProjectiles;
             projectile = projectiles[curAmmo];
-            Debug.Log("Ammo is now " + projectile);
+            string shotName = projectile.GetComponent<ShotScript>().shotName;
+            Debug.Log("Ammo is now " + projectile + " " + shotName);
+            hudScript.SetAmmo(shotName);
         }
 
         // Check for firing

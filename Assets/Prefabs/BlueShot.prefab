@@ -12,6 +12,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1288520823684281953, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
+      propertyPath: shotName
+      value: Power Shot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288520823684281953, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
       propertyPath: shotVelocity
       value: 9
       objectReference: {fileID: 0}

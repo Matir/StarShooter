@@ -9,6 +9,7 @@ public class HUDScript : MonoBehaviour
     public TMP_Text LevelText;
     public TMP_Text ScoreText;
     public TMP_Text HighScoreText;
+    public TMP_Text AmmoText;
 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +33,9 @@ public class HUDScript : MonoBehaviour
 
     public void SetHighScore(int score) {
         HighScoreText.text = String.Format("High Score: {0}", score);
+    }
+
+    public void SetAmmo(string ammo) {
+        AmmoText.text = String.Format("Ammo: {0}", ammo);
     }
 }

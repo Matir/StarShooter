@@ -11,6 +11,8 @@ public class ShotScript : MonoBehaviour
     private int damage = 1;
     // Who was the shooter?
     private bool friendly = false;
+    // name of shot
+    public string shotName = "Shot";
 
     // Start is called before the first frame update
     void Start()
