@@ -6,10 +6,10 @@ TODO:
   - [X] Heavy Missile (BlueShot)
   - [ ] Guided Missile
   - [ ] Laser
-  - [ ] Triple Missile
+  - [X] Triple Missile
 - [ ] Enemy Types
   - [X] Group
-  - [ ] Boss 1
+  - [X] Boss 1
   - [ ] Boss 2
 - [X] Overall Score
 - [X] Shields
