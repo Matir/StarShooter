@@ -9,7 +9,8 @@ TODO:
   - [ ] Triple Missile
 - [ ] Enemy Types
   - [X] Group
-  - [ ] Huge Fighter
+  - [ ] Boss 1
+  - [ ] Boss 2
 - [X] Overall Score
 - [X] Shields
   - [ ] Make fade
@@ -17,3 +18,5 @@ TODO:
 - [ ] Explosions on Hit
 - [X] Explosions on Destroy
 - [X] Ammo type in UI
+- [ ] Pause
+- [ ] Instructions/Intro

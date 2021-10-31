@@ -21,12 +21,12 @@ public class EnemyScript : MonoBehaviour
     private int i=0;
     private int enemyLevel=1;
     private float lastFireTime = 0.0f;
-    private int currhp;
+    protected int currhp;
     private HealthBar hpbar = null;
     private LevelController levelController = null;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         GameObject[] candidates = GameObject.FindGameObjectsWithTag("Player");
         if (candidates.Length != 1) {
@@ -102,12 +102,12 @@ public class EnemyScript : MonoBehaviour
 
     // Bullets & missiles have trigger enabled
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.GetComponent<ShotScript>().IsFriendly()) {
+        if (ShotScript.IsShot(col.gameObject) && col.gameObject.GetComponent<ShotScript>().IsFriendly()) {
             HitFire(col.gameObject);
         }
     }
 
-    void HitFire(GameObject fire) {
+    protected virtual void HitFire(GameObject fire) {
         // TODO: trigger any dying effect, etc.
         ShotScript shot = fire.GetComponent<ShotScript>();
         currhp -= shot.GetDamage();

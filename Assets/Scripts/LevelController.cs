@@ -179,6 +179,9 @@ public class LevelController : MonoBehaviour
 
     List<string> GetLevelConfig(int levelNo) {
         // TODO: real implementation
+        if ((levelNo % 5) == 0) {
+            return new List<string>{"Boss1"};
+        }
         if ((levelNo % 2) == 1) {
             return new List<string>{"BasicEnemy"};
         }

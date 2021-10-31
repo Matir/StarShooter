@@ -566,7 +566,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1538742789
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -6056,6 +6056,7 @@ MonoBehaviour:
   EnemyPrefabs:
   - {fileID: 4524216901149148725, guid: 97d4d8b044b7a8d5e9fdf7c8b4b12e44, type: 3}
   - {fileID: 8069612305202354049, guid: b68fa9d8be55d5f45a0cc080f2ee477e, type: 3}
+  - {fileID: 7100253456483671062, guid: 40fad989a323cc395ba354bf54e58cfa, type: 3}
   playerLineY: -4
   enemyLineY: 3.5
   enemySpacing: 1
@@ -6290,7 +6291,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 546621629
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &2143940336
