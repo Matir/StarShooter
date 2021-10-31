@@ -15,11 +15,11 @@ public class PlayerScript : MonoBehaviour
     public Color healthBarColor = Color.green;
     public float shieldLife = 5.0f;
     public GameObject HUD;
+    public LevelController levelController;
 
     private GameObject shieldObject;
     private GameObject projectile;
     private int unlockedProjectiles = 1;
-    private LevelController levelController;
     private float threshold = 0.01f;
     private Rigidbody2D rigidBody;
     private bool firing = false;
@@ -55,12 +55,6 @@ public class PlayerScript : MonoBehaviour
     // Awake is called before Start
     void Awake() {
         rigidBody = GetComponent<Rigidbody2D>();
-        GameObject lvlc = GameObject.Find("LevelController");
-        if (lvlc != null) {
-            levelController = lvlc.GetComponent<LevelController>();
-        } else {
-            Debug.Log("Unable to find level controller!");
-        }
         shieldObject = transform.Find("Shields").gameObject;
         hudScript = HUD.GetComponent<HUDScript>();
     }
