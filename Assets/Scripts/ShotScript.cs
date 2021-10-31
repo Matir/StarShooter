@@ -13,6 +13,11 @@ public class ShotScript : MonoBehaviour
     private bool friendly = false;
     // name of shot
     public string shotName = "Shot";
+    // Shot tripler?
+    [SerializeField]
+    private bool tripleShot = false;
+
+    private float tripleSpacing = 0.4f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +36,17 @@ public class ShotScript : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         Vector2 v = new Vector2(0, shotVelocity);
         rb.velocity = Quaternion.Euler(0, 0, rb.rotation) * v;
+        if (tripleShot) {
+            float[] offsets = new float[]{-tripleSpacing, tripleSpacing};
+            foreach (float offset in offsets) {
+                Vector3 pos = transform.position;
+                pos.x += offset;
+                var fired = Instantiate(gameObject, pos, transform.rotation);
+                var newScript = fired.GetComponent<ShotScript>();
+                newScript.tripleShot = false;
+                newScript.Fire(friendly);
+            }
+        }
     }
 
     void OnBecameInvisible() {

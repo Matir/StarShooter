@@ -42,6 +42,7 @@ public class LevelController : MonoBehaviour
     private Coroutine powerUpCoroutine = null;
     private float powerUpChance = 0.0f;
     private float powerUpTick = 3.0f;
+    private bool levelIncrementing = false;
 
     private int score {
         get {
@@ -94,6 +95,8 @@ public class LevelController : MonoBehaviour
         levelNo = 0;
         score = 0;
         enemiesKilled = 0;
+        levelIncrementing = false;
+        
         if (player != null && currentState != GameState.New) {
             player.GetComponent<PlayerScript>().ResetPlayer();
         }
@@ -140,11 +143,17 @@ public class LevelController : MonoBehaviour
     }
 
     IEnumerator IncrementLevel() {
+        if (levelIncrementing) {
+            yield break;
+        }
+        levelIncrementing = true;
         yield return new WaitForSeconds(levelIncrementDelay);
         if (currentState != GameState.Playing) {
+            levelIncrementing = false;
             yield break;
         }
         LaunchLevel();
+        levelIncrementing = false;
     }
 
     // Show the gameover screen

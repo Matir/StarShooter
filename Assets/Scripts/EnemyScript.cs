@@ -110,12 +110,17 @@ public class EnemyScript : MonoBehaviour
     protected virtual void HitFire(GameObject fire) {
         // TODO: trigger any dying effect, etc.
         ShotScript shot = fire.GetComponent<ShotScript>();
-        currhp -= shot.GetDamage();
+        int dmg = shot.GetDamage();
+        bool dying = (currhp > 0 && currhp <= dmg);
+        currhp -= dmg;
+        if (currhp < 0) {
+            currhp = 0;
+        }
         if (hpbar != null) {
             hpbar.SetHealth((float)(currhp)/(float)(hp));
         }
         Destroy(fire);
-        if (currhp <= 0) {
+        if (dying) {
             // TODO: big show of dying, etc.
             if (levelController != null) {
                 levelController.EnemyDeath(gameObject, pointValue);
