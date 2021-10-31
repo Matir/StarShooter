@@ -23,6 +23,7 @@ public class HUDScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Handle pause menu option here
         if (Input.GetKeyDown(KeyCode.Escape)) {
             paused = !paused;
             ShowPause(paused);

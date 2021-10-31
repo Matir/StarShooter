@@ -18,5 +18,5 @@ TODO:
 - [ ] Explosions on Hit
 - [X] Explosions on Destroy
 - [X] Ammo type in UI
-- [ ] Pause
-- [ ] Instructions/Intro
+- [X] Pause
+- [X] Instructions/Intro
