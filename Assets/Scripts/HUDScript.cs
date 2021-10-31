@@ -10,6 +10,9 @@ public class HUDScript : MonoBehaviour
     public TMP_Text ScoreText;
     public TMP_Text HighScoreText;
     public TMP_Text AmmoText;
+    public GameObject PauseObject;
+
+    private bool paused = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +23,11 @@ public class HUDScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            paused = !paused;
+            ShowPause(paused);
+            Time.timeScale = paused ? 0 : 1;
+        }
     }
 
     public void SetLevel(int level) {
@@ -37,5 +44,9 @@ public class HUDScript : MonoBehaviour
 
     public void SetAmmo(string ammo) {
         AmmoText.text = String.Format("Ammo: {0}", ammo);
+    }
+
+    public void ShowPause(bool show) {
+        PauseObject.SetActive(show);
     }
 }
