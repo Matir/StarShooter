@@ -98,13 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc57663b0fd336e488c4f805b536150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
-  minFireDelay: 0.25
-  projectiles: []
-  healthBarPrefab: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
-  hp: 10
-  hpbarVerticalOffset: -0.6
-  healthBarColor: {r: 0, g: 0.8113208, b: 0.07041034, a: 0.7058824}
+  Speed: 10
+  MinFireDelay: 1
+  Projectiles:
+  - {fileID: 4302447789720959495, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
+  - {fileID: 2515566673414300244, guid: 54980fd6032fe6463879b462498350b2, type: 3}
+  - {fileID: 5234783567479934885, guid: aa090e969bbbac15e862f17542384989, type: 3}
+  HealthBarPrefab: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
+  HP: 10
+  HPBarVerticalOffset: -0.8
+  HealthBarColor: {r: 0, g: 1, b: 0, a: 1}
+  ShieldLife: 5
+  HUD: {fileID: 0}
+  LevelController: {fileID: 0}
 --- !u!61 &418633271998738719
 BoxCollider2D:
   m_ObjectHideFlags: 0

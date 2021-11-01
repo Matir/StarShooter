@@ -6,16 +6,16 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public float speed = 10.0f;
-    public float minFireDelay = 1.0f;
-    public GameObject[] projectiles;
-    public GameObject healthBarPrefab;
-    public int hp = 10;
-    public float hpbarVerticalOffset = -0.8f;
-    public Color healthBarColor = Color.green;
-    public float shieldLife = 5.0f;
+    public float Speed = 10.0f;
+    public float MinFireDelay = 1.0f;
+    public GameObject[] Projectiles;
+    public GameObject HealthBarPrefab;
+    public int HP = 10;
+    public float HPBarVerticalOffset = -0.8f;
+    public Color HealthBarColor = Color.green;
+    public float ShieldLife = 5.0f;
     public GameObject HUD;
-    public LevelController levelController;
+    public LevelController LevelController;
 
     private GameObject shieldObject;
     private GameObject projectile;
@@ -31,7 +31,7 @@ public class PlayerScript : MonoBehaviour
     private Coroutine shieldDisableCoroutine = null;
     private HUDScript hudScript = null;
 
-    public bool shieldsEnabled {
+    public bool ShieldsEnabled {
         get {
             return shields_;
         }
@@ -64,18 +64,18 @@ public class PlayerScript : MonoBehaviour
     {
         startPos = transform.position;
         Debug.Log("Initial position: " + startPos);
-        if (healthBarPrefab != null) {
+        if (HealthBarPrefab != null) {
             GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
             if (canvas == null) {
                 Debug.Log("Unable to find canvas!");
             }
             GameObject barobj = Instantiate(
-                healthBarPrefab, new Vector3(0, 0, 0),
+                HealthBarPrefab, new Vector3(0, 0, 0),
                 Quaternion.identity,
                 canvas.transform);
             barobj.name = "PlayerHealthBar";
             hpbar = barobj.GetComponent<HealthBar>();
-            hpbar.BarColor = healthBarColor;
+            hpbar.BarColor = HealthBarColor;
         }
         ResetPlayer();
     }
@@ -85,12 +85,12 @@ public class PlayerScript : MonoBehaviour
             hpbar.SetHealth(1.0f);
             hpbar.gameObject.SetActive(true);
         }
-        currhp = hp;
+        currhp = HP;
         transform.position = startPos;
         gameObject.SetActive(true);
-        projectile = projectiles[0];
+        projectile = Projectiles[0];
         unlockedProjectiles = 1;
-        shieldsEnabled = false;
+        ShieldsEnabled = false;
     }
 
     // Update is called once per frame
@@ -98,9 +98,9 @@ public class PlayerScript : MonoBehaviour
     {
         // Check for change ammo
         if (Input.GetKeyDown(KeyCode.Tab)) {
-            int curAmmo = Array.IndexOf<GameObject>(projectiles, projectile);
+            int curAmmo = Array.IndexOf<GameObject>(Projectiles, projectile);
             curAmmo = (curAmmo + 1) % unlockedProjectiles;
-            projectile = projectiles[curAmmo];
+            projectile = Projectiles[curAmmo];
             string shotName = projectile.GetComponent<ShotScript>().shotName;
             Debug.Log("Ammo is now " + projectile + " " + shotName);
             hudScript.SetAmmo(shotName);
@@ -108,7 +108,7 @@ public class PlayerScript : MonoBehaviour
 
         // Check for firing
         firing = Input.GetButton("Fire1");
-        if (firing && (Time.time > lastFireTime + minFireDelay)) {
+        if (firing && (Time.time > lastFireTime + MinFireDelay)) {
             lastFireTime = Time.time;
             FireCannon();
         }
@@ -116,7 +116,7 @@ public class PlayerScript : MonoBehaviour
         if (hpbar != null) {
             hpbar.Position(
                 transform.position.x,
-                transform.position.y + hpbarVerticalOffset);
+                transform.position.y + HPBarVerticalOffset);
         }
     }
 
@@ -132,7 +132,7 @@ public class PlayerScript : MonoBehaviour
         if (Math.Abs(movement) < threshold) {
             movement = 0.0f;
         }
-        movement *= speed;
+        movement *= Speed;
         rigidBody.velocity = new Vector2(movement, 0);
     }
 
@@ -155,16 +155,16 @@ public class PlayerScript : MonoBehaviour
 
     void HitFire(GameObject fire) {
         ShotScript shot = fire.GetComponent<ShotScript>();
-        if (!shieldsEnabled) {
+        if (!ShieldsEnabled) {
             currhp -= shot.GetDamage();
         }
         if (hpbar != null) {
-            hpbar.SetHealth((float)(currhp)/(float)(hp));
+            hpbar.SetHealth((float)(currhp)/(float)(HP));
         }
         Destroy(fire);
         if (currhp <= 0) {
-            if (levelController != null) {
-                levelController.PlayerDie();
+            if (LevelController != null) {
+                LevelController.PlayerDie();
             }
             gameObject.SetActive(false);
             hpbar.gameObject.SetActive(false);
@@ -181,16 +181,16 @@ public class PlayerScript : MonoBehaviour
         // Apply a power up
         switch (power) {
             case PowerUpType.Shield:
-                shieldsEnabled = true;
+                ShieldsEnabled = true;
                 break;
             case PowerUpType.MissileUpgrade:
-                if (unlockedProjectiles < projectiles.Length) {
+                if (unlockedProjectiles < Projectiles.Length) {
                     unlockedProjectiles++;
                 }
-                Debug.Log("Unlocked projectiles: " + unlockedProjectiles);
+                Debug.Log("Unlocked Projectiles: " + unlockedProjectiles);
                 break;
             case PowerUpType.Health:
-                currhp = hp;
+                currhp = HP;
                 hpbar.SetHealth(1.0f);
                 break;
             default:
@@ -200,8 +200,8 @@ public class PlayerScript : MonoBehaviour
     }
 
     private IEnumerator DisableShieldTimer() {
-        yield return new WaitForSeconds(shieldLife);
-        shieldsEnabled = false;
+        yield return new WaitForSeconds(ShieldLife);
+        ShieldsEnabled = false;
         shieldDisableCoroutine = null;
     }
 }

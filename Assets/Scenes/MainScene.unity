@@ -7823,15 +7823,15 @@ MonoBehaviour:
   - {fileID: 4524216901149148725, guid: 97d4d8b044b7a8d5e9fdf7c8b4b12e44, type: 3}
   - {fileID: 8069612305202354049, guid: b68fa9d8be55d5f45a0cc080f2ee477e, type: 3}
   - {fileID: 7100253456483671062, guid: 40fad989a323cc395ba354bf54e58cfa, type: 3}
-  playerLineY: -4
-  enemyLineY: 3.5
-  enemySpacing: 1
-  powerupLineY: 2.75
-  powerUpMinX: -9
-  powerUpMaxX: 9
-  gameOverScreenDelay: 1
-  levelIncrementDelay: 1
-  powerUpChancePerTick: 0.1
+  PlayerLineY: -4
+  EnemyLineY: 3.5
+  EnemySpacing: 1
+  PowerupLineY: 2.75
+  PowerUpMinX: -8
+  PowerUpMaxX: 8
+  GameOverScreenDelay: 1
+  LevelIncrementDelay: 1
+  PowerUpChancePerTick: 0.08
 --- !u!4 &1962999487
 Transform:
   m_ObjectHideFlags: 0
@@ -8178,6 +8178,10 @@ PrefabInstance:
       propertyPath: projectile
       value: 
       objectReference: {fileID: 4302447789720959495, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
+    - target: {fileID: 418633271998738714, guid: 0e34721b7c8c44e8caaeae91d6ccc672, type: 3}
+      propertyPath: LevelController
+      value: 
+      objectReference: {fileID: 1962999486}
     - target: {fileID: 418633271998738714, guid: 0e34721b7c8c44e8caaeae91d6ccc672, type: 3}
       propertyPath: levelController
       value: 
