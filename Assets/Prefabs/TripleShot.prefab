@@ -8,8 +8,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1288520823684281953, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
+      propertyPath: ShotName
+      value: Triple Shot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288520823684281953, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
       propertyPath: shotName
       value: TripleShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288520823684281953, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
+      propertyPath: TripleShot
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1288520823684281953, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
       propertyPath: tripleShot

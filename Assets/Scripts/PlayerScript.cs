@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public float Speed = 10.0f;
-    public float MinFireDelay = 1.0f;
+    public float MinFireDelay = 0.25f;
     public GameObject[] Projectiles;
     public GameObject HealthBarPrefab;
     public int HP = 10;
@@ -101,7 +101,7 @@ public class PlayerScript : MonoBehaviour
             int curAmmo = Array.IndexOf<GameObject>(Projectiles, projectile);
             curAmmo = (curAmmo + 1) % unlockedProjectiles;
             projectile = Projectiles[curAmmo];
-            string shotName = projectile.GetComponent<ShotScript>().shotName;
+            string shotName = projectile.GetComponent<ShotScript>().ShotName;
             Debug.Log("Ammo is now " + projectile + " " + shotName);
             hudScript.SetAmmo(shotName);
         }

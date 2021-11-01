@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10
-  MinFireDelay: 1
+  MinFireDelay: 0.25
   Projectiles:
   - {fileID: 4302447789720959495, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
   - {fileID: 2515566673414300244, guid: 54980fd6032fe6463879b462498350b2, type: 3}
