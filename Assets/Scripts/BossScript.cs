@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossScript : EnemyScript
 {
-    public int numShieldPoints = 2;
-    public float shieldDuration = 5.0f; 
+    public int NumShieldPoints = 2;
+    public float ShieldDuration = 5.0f; 
 
     private GameObject shieldObject = null;
     private bool shields_ = false;
@@ -27,9 +27,9 @@ public class BossScript : EnemyScript
         base.Start();
         shieldObject = transform.Find("Shields").gameObject;
         shieldObject.SetActive(false);
-        shieldPoints = new List<int>(numShieldPoints);
-        for (int i=numShieldPoints; i>0; i--) {
-            shieldPoints.Add(hp*i/(numShieldPoints+1));
+        shieldPoints = new List<int>(NumShieldPoints);
+        for (int i=NumShieldPoints; i>0; i--) {
+            shieldPoints.Add(hp*i/(NumShieldPoints+1));
         }
     }
 
@@ -50,7 +50,7 @@ public class BossScript : EnemyScript
 
     private IEnumerator RunShields() {
         shieldsEnabled = true;
-        yield return new WaitForSeconds(shieldDuration);
+        yield return new WaitForSeconds(ShieldDuration);
         shieldsEnabled = false;
     }
 }

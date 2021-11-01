@@ -6,16 +6,16 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public int hp = 10;
-    public GameObject projectile;
-    public float shootRange = 0.5f;
-    public float minFireDelay = 1.0f;
-    public float maxForce = 5.0f;
-    public GameObject healthBarPrefab;
-    public float hpbarVerticalOffset = 0.8f;
-    public Color healthBarColor = Color.red;
-    public int pointValue = 1;
+    public GameObject Projectile;
+    public float ShootRange = 0.5f;
+    public float MinFireDelay = 1.0f;
+    public float MaxForce = 5.0f;
+    public GameObject HealthBarPrefab;
+    public float HPBarVerticalOffset = 0.8f;
+    public Color HealthBarColor = Color.red;
+    public int PointValue = 1;
     public string EnemyName;
-    public GameObject deathExplosion;
+    public GameObject DeathExplosion;
 
     private Rigidbody2D playerBody;
     private int i=0;
@@ -34,18 +34,18 @@ public class EnemyScript : MonoBehaviour
         }
         playerBody = candidates[0].GetComponent<Rigidbody2D>();
         currhp = hp;
-        if (healthBarPrefab != null) {
+        if (HealthBarPrefab != null) {
             GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
             if (canvas == null) {
                 Debug.Log("Unable to find canvas!");
             }
             GameObject barobj = Instantiate(
-                healthBarPrefab, new Vector3(0, 0, 0),
+                HealthBarPrefab, new Vector3(0, 0, 0),
                 Quaternion.identity,
                 canvas.transform);
             barobj.name = "EnemyHealthBar";
             hpbar = barobj.GetComponent<HealthBar>();
-            hpbar.barColor = healthBarColor;
+            hpbar.barColor = HealthBarColor;
         }
         GameObject lvlc = GameObject.Find("LevelController");
         if (lvlc != null) {
@@ -59,7 +59,7 @@ public class EnemyScript : MonoBehaviour
         if (hpbar != null) {
             hpbar.Position(
                 transform.position.x,
-                transform.position.y + hpbarVerticalOffset);
+                transform.position.y + HPBarVerticalOffset);
         }
     }
 
@@ -80,10 +80,10 @@ public class EnemyScript : MonoBehaviour
         if (Math.Sign(delta) != Math.Sign(rb.velocity.x)) {
             force = delta*4;
         }
-        force = Mathf.Clamp(force, -maxForce, maxForce);
+        force = Mathf.Clamp(force, -MaxForce, MaxForce);
         rb.AddRelativeForce(new Vector2(force, 0));
         // If we're close, try shooting
-        if (Math.Abs(delta) < shootRange) {
+        if (Math.Abs(delta) < ShootRange) {
             Shoot();
         }
         if (i++%100 == 0) {
@@ -92,11 +92,11 @@ public class EnemyScript : MonoBehaviour
     }
 
     void Shoot() {
-        if (Time.time < lastFireTime + minFireDelay) {
+        if (Time.time < lastFireTime + MinFireDelay) {
             return;
         }
         lastFireTime = Time.time;
-        GameObject fired = Instantiate(projectile, transform.position, transform.rotation);
+        GameObject fired = Instantiate(Projectile, transform.position, transform.rotation);
         fired.GetComponent<ShotScript>().Fire(false);
     }
 
@@ -123,11 +123,11 @@ public class EnemyScript : MonoBehaviour
         if (dying) {
             // TODO: big show of dying, etc.
             if (levelController != null) {
-                levelController.EnemyDeath(gameObject, pointValue);
+                levelController.EnemyDeath(gameObject, PointValue);
             }
-            if (deathExplosion != null) {
+            if (DeathExplosion != null) {
                 Instantiate(
-                    deathExplosion,
+                    DeathExplosion,
                     transform.position,
                     Quaternion.identity);
             }

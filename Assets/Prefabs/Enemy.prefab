@@ -145,13 +145,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
-  projectile: {fileID: 4302447789720959495, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
-  shootRange: 0.5
-  minFireDelay: 1
-  maxForce: 5
-  healthBarPrefab: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
-  hpbarVerticalOffset: 0.8
-  healthBarColor: {r: 1, g: 0, b: 0, a: 1}
-  pointValue: 1
+  Projectile: {fileID: 4302447789720959495, guid: e943f7003c00c2526a69869b7f029f46, type: 3}
+  ShootRange: 0.5
+  MinFireDelay: 1
+  MaxForce: 5
+  HealthBarPrefab: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
+  HPBarVerticalOffset: 0.8
+  HealthBarColor: {r: 1, g: 0, b: 0, a: 1}
+  PointValue: 1
   EnemyName: BasicEnemy
-  deathExplosion: {fileID: 3146161989128731773, guid: 12915ba7431325c0b82c489e078758e5, type: 3}
+  DeathExplosion: {fileID: 3146161989128731773, guid: 12915ba7431325c0b82c489e078758e5, type: 3}

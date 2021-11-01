@@ -228,15 +228,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 25
-  projectile: {fileID: 2515566673414300244, guid: 54980fd6032fe6463879b462498350b2, type: 3}
-  shootRange: 0.5
-  minFireDelay: 1
-  maxForce: 5
-  healthBarPrefab: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
-  hpbarVerticalOffset: 0.8
-  healthBarColor: {r: 1, g: 0, b: 0, a: 1}
-  pointValue: 3
+  Projectile: {fileID: 2515566673414300244, guid: 54980fd6032fe6463879b462498350b2, type: 3}
+  ShootRange: 0.5
+  MinFireDelay: 1
+  MaxForce: 5
+  HealthBarPrefab: {fileID: 4035161017551043696, guid: 9289aed2913d16e62b3eceb5a54bffb8, type: 3}
+  HPBarVerticalOffset: 0.8
+  HealthBarColor: {r: 1, g: 0, b: 0, a: 1}
+  PointValue: 1
   EnemyName: Boss1
-  deathExplosion: {fileID: 3146161989128731773, guid: 12915ba7431325c0b82c489e078758e5, type: 3}
-  numShieldPoints: 2
-  shieldDuration: 5
+  DeathExplosion: {fileID: 3146161989128731773, guid: 12915ba7431325c0b82c489e078758e5, type: 3}
+  NumShieldPoints: 2
+  ShieldDuration: 5
