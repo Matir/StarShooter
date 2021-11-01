@@ -45,7 +45,7 @@ public class EnemyScript : MonoBehaviour
                 canvas.transform);
             barobj.name = "EnemyHealthBar";
             hpbar = barobj.GetComponent<HealthBar>();
-            hpbar.barColor = HealthBarColor;
+            hpbar.BarColor = HealthBarColor;
         }
         GameObject lvlc = GameObject.Find("LevelController");
         if (lvlc != null) {

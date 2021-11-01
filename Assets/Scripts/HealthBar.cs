@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Color barColor = Color.red;
-    public bool hideFull = true;
+    public Color BarColor = Color.red;
+    public bool HideFull = true;
 
     private Image fillImage;
     private CanvasGroup group;
@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
     void Awake()
     {
         group = GetComponent<CanvasGroup>();
-        if (hideFull) {
+        if (HideFull) {
             group.alpha = 0f;
             shown = false;
         }
@@ -31,8 +31,8 @@ public class HealthBar : MonoBehaviour
 
     // Start is called before first frame update
     void Start() {
-        fillImage.color = barColor;
-        //Debug.Log("Color: " + barColor);
+        fillImage.color = BarColor;
+        //Debug.Log("Color: " + BarColor);
     }
 
     // Update is called once per frame
@@ -42,14 +42,14 @@ public class HealthBar : MonoBehaviour
     }
 
     public void SetHideFull(bool hf) {
-        hideFull = hf;
+        HideFull = hf;
     }
 
     public void SetHealth(float health) {
         health = Mathf.Clamp(health, 0.0f, 1.0f);
         fillImage.fillAmount = health;
         //Debug.Log("Health: " + health + " Full: " + fullAmount);
-        if (hideFull && health >= fullAmount) {
+        if (HideFull && health >= fullAmount) {
             // Hide
             HideBar();
         } else {

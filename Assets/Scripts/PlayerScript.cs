@@ -75,7 +75,7 @@ public class PlayerScript : MonoBehaviour
                 canvas.transform);
             barobj.name = "PlayerHealthBar";
             hpbar = barobj.GetComponent<HealthBar>();
-            hpbar.barColor = healthBarColor;
+            hpbar.BarColor = healthBarColor;
         }
         ResetPlayer();
     }

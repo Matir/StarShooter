@@ -18,17 +18,17 @@ public class LevelController : MonoBehaviour
     public GameObject PowerUp;
     public List<GameObject> EnemyPrefabs;
 
-    public float playerLineY = -4.0f;
-    public float enemyLineY = 3.5f;
-    public float enemySpacing = 1.0f;
-    public float powerupLineY = 2.75f;
-    public float powerUpMinX = -9.0f;
-    public float powerUpMaxX = 9.0f;
+    public float PlayerLineY = -4.0f;
+    public float EnemyLineY = 3.5f;
+    public float EnemySpacing = 1.0f;
+    public float PowerupLineY = 2.75f;
+    public float PowerUpMinX = -8.0f;
+    public float PowerUpMaxX = 8.0f;
 
-    public float gameOverScreenDelay = 1.0f;
-    public float levelIncrementDelay = 1.0f;
+    public float GameOverScreenDelay = 1.0f;
+    public float LevelIncrementDelay = 1.0f;
 
-    public float powerUpChancePerTick = 0.08f;
+    public float PowerUpChancePerTick = 0.08f;
 
     private GameObject player;
     private PlayerScript playerScript;
@@ -96,7 +96,7 @@ public class LevelController : MonoBehaviour
         score = 0;
         enemiesKilled = 0;
         levelIncrementing = false;
-        
+
         if (player != null && currentState != GameState.New) {
             player.GetComponent<PlayerScript>().ResetPlayer();
         }
@@ -147,7 +147,7 @@ public class LevelController : MonoBehaviour
             yield break;
         }
         levelIncrementing = true;
-        yield return new WaitForSeconds(levelIncrementDelay);
+        yield return new WaitForSeconds(LevelIncrementDelay);
         if (currentState != GameState.Playing) {
             levelIncrementing = false;
             yield break;
@@ -163,7 +163,7 @@ public class LevelController : MonoBehaviour
     }
 
     IEnumerator ShowGameOverDelay() {
-        yield return new WaitForSeconds(gameOverScreenDelay);
+        yield return new WaitForSeconds(GameOverScreenDelay);
         ShowGameOverImmediate();
     }
 
@@ -200,18 +200,18 @@ public class LevelController : MonoBehaviour
     // Load enemies based on list
     void LoadEnemies(List<string> enemies) {
         int numEnemies = enemies.Count;
-        float startPos = (float)(numEnemies - 1) / 2.0f * enemySpacing;
+        float startPos = (float)(numEnemies - 1) / 2.0f * EnemySpacing;
         int i = 0;
         foreach(var name in enemies) {
             if (!enemyPrefabMap.ContainsKey(name)) {
                 Debug.Log("Could not find enemy: " + name);
                 continue;
             }
-            float x = startPos + i * enemySpacing;
+            float x = startPos + i * EnemySpacing;
             Debug.Log("x="+x);
             GameObject enemy = Instantiate(
                 enemyPrefabMap[name],
-                new Vector3(x, enemyLineY, 0),
+                new Vector3(x, EnemyLineY, 0),
                 Quaternion.Euler(0, 0, 180)
             );
             enemy.GetComponent<EnemyScript>().SetLevel(levelNo);
@@ -232,7 +232,7 @@ public class LevelController : MonoBehaviour
     private IEnumerator CreatePowerups() {
         // Create powerups periodically
         while (true) {
-            powerUpChance += powerUpChancePerTick;
+            powerUpChance += PowerUpChancePerTick;
             if (Utils.RandomChance(powerUpChance)) {
                 Debug.Log("Creating a powerup.");
                 PlacePowerUp();
@@ -250,8 +250,8 @@ public class LevelController : MonoBehaviour
     }
 
     private void PlacePowerUp() {
-        float x = Random.Range(powerUpMinX, powerUpMaxX);
-        Vector3 pos = new Vector3(x, powerupLineY, 0);
+        float x = Random.Range(PowerUpMinX, PowerUpMaxX);
+        Vector3 pos = new Vector3(x, PowerupLineY, 0);
         GameObject power = Instantiate(PowerUp, pos, Quaternion.identity);
         PowerUpType pt = Utils.GetRandomElement(PowerUpScript.PowerUpTypes);
         power.GetComponent<PowerUpScript>().PType = pt;
