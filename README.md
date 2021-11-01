@@ -20,5 +20,5 @@ TODO:
 - [X] Ammo type in UI
 - [X] Pause
 - [X] Instructions/Intro
-- [ ] Rename to more consistent
-  - [ ] PascalCase
+- [X] Rename to more consistent
+  - [X] PascalCase
